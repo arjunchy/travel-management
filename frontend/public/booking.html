@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Management - Booking</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Book Your Travel</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="admin.html">Admin</a></li>
+                <li><a href="booking.html">Booking</a></li>
+                <li><a href="bookedTickets.html">Booked Tickets</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <form id="bookingForm">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="text" id="phone" placeholder="Phone Number" required>
+            <select id="type" required>
+                <option value="">Select Type</option>
+                <option value="flight">Flight</option>
+                <option value="train">Train</option>
+                <option value="car">Car</option>
+            </select>
+            <input type="text" id="source" placeholder="From" required>
+            <input type="text" id="destination" placeholder="To" required>
+            <input type="date" id="date" required>
+            <button type="submit">Search</button>
+        </form>
+        <div id="results"></div>
+    </main>
+    <script src="js/booking.js"></script>
+</body>
+</html>
