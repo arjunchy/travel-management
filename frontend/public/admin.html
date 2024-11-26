@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Management - Admin</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Admin Panel</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="admin.html">Admin</a></li>
+                <li><a href="booking.html">Booking</a></li>
+                <li><a href="bookedTickets.html">Booked Tickets</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Add Accommodation</h2>
+        <form id="addAccommodationForm">
+            <input type="text" id="name" name="name" placeholder="Accommodation Name" required>
+            <input type="text" id="type" name="type" placeholder="Type (Flight, Train, Car)" required>
+            <input type="text" id="source" name="source" placeholder="Source" required>
+            <input type="text" id="destination" name="destination" placeholder="Destination" required>
+            <input type="date" id="travelDate" name="travelDate" required>
+            <input type="number" id="availableSeats" name="availableSeats" placeholder="Seats Available" required>
+            <button type="submit">Add Accommodation</button>
+        </form>
+    </main>
+    <script src="js/addAccommodation.js"></script>
+</body>
+</html>
