@@ -5,6 +5,7 @@ const Vehicle = require('../models/Vehicle'); // Adjust this based on your file'
 
 // Add a booking
 const { Op } = require('sequelize'); // Import Op
+// controllers/bookingController.js
 exports.addBooking = async (req, res) => {
   try {
       const bookingDate = new Date(req.body.booking_date); // Assuming booking_date is in a valid date format
@@ -27,10 +28,11 @@ exports.addBooking = async (req, res) => {
       }
 
       const booking = await Booking.create({
-          user_id: req.body.user_id,
-          vehicle_id: vehicle.id,
-          booking_date: req.body.booking_date,
-      });
+        user_id: req.body.user_id,
+        vehicle_id: vehicle.id,
+        booking_date: req.body.booking_date,
+        booking_type: req.body.booking_type, // Capture the booking type from the request
+    });
 
       res.status(201).json(booking);
   } catch (error) {

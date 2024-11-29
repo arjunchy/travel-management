@@ -1,3 +1,4 @@
+// models/booking.js
 module.exports = (sequelize, DataTypes) => {
   const Booking = sequelize.define('Booking', {
       id: {
@@ -20,6 +21,10 @@ module.exports = (sequelize, DataTypes) => {
       booking_date: {
           type: DataTypes.DATE,
           allowNull: false,
+      },
+      booking_type: { // Add this new field
+          type: DataTypes.STRING,
+          allowNull: false, // You can set this to true if you want it to be optional
       },
   }, {});
 

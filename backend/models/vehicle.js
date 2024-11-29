@@ -20,6 +20,7 @@ const Vehicle = sequelize.define('Vehicle', {
     type: DataTypes.DATE,
     allowNull: false,
   },
+  // Remove accommodation_type from here
 });
 
 module.exports = Vehicle;
