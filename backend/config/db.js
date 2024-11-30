@@ -3,7 +3,7 @@ const { Sequelize } = require('sequelize');
 // Set up the database connection
 const sequelize = new Sequelize('vehicle_booking', 'root', 'mysql@123', {
   host: 'localhost',
-  dialect: 'mysql', // 'mysql' is correct, but you need to install mysql2
+  dialect: 'mysql', 
 });
 
 sequelize.authenticate()

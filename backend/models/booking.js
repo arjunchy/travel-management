@@ -14,7 +14,7 @@ const Booking = sequelize.define('Booking', {
     vehicle_id: {
         type: DataTypes.INTEGER,
         references: {
-            model: 'Vehicles', // Ensure this matches your table name
+            model: 'Vehicles', 
             key: 'id',
         },
         allowNull: false,
@@ -29,4 +29,4 @@ const Booking = sequelize.define('Booking', {
     },
 }, {});
 
-module.exports = Booking; // Ensure this is exporting the Booking model correctly
+module.exports = Booking; 
