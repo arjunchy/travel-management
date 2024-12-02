@@ -1,7 +1,7 @@
 // src/pages/Vehicles.js
 import { useEffect, useState } from 'react';
+import AddVehicle from '../components/AddVehicle';
 import VehicleList from '../components/VehicleList';
-import AddVehicle from '../components/AddVehicle'; // Import the new component
 
 const Vehicles = () => {
   const [vehicles, setVehicles] = useState([]);
@@ -16,10 +16,14 @@ const Vehicles = () => {
     fetchVehicles();
   }, []);
 
+  const handleVehicleAdded = () => {
+    fetchVehicles();
+  };
+
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Available Vehicles</h1>
-      <AddVehicle onVehicleAdded={fetchVehicles} /> {/* Pass the fetchVehicles function */}
+    <div className="bg-gray-100 min-h-screen p-4">
+      <h1 className="text-3xl font-bold mb-4 text-center">Manage Vehicles</h1>
+      <AddVehicle onVehicleAdded={handleVehicleAdded} />
       <VehicleList vehicles={vehicles} />
     </div>
   );

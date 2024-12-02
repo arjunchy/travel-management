@@ -1,16 +1,20 @@
 // src/components/VehicleList.js
 const VehicleList = ({ vehicles }) => {
-    return (
+  return (
+    <div className="mt-6">
+      <h2 className="text-2xl font-bold mb-4">Available Vehicles</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {vehicles.map(vehicle => (
-          <div key={vehicle.id} className="border p-4 rounded-lg shadow">
-            <h2 className="text-xl font-semibold">{vehicle.name}</h2>
-            <p>{vehicle.description}</p>
-            <button className="mt-2 bg-blue-500 text-white py-2 px-4 rounded">Book Now</button>
+          <div key={vehicle.id} className="p-4 bg-white rounded shadow-md">
+            <h3 className="text-xl font-semibold">{vehicle.type}</h3>
+            <p className="text-gray-600">Source: {vehicle.source}</p>
+            <p className="text-gray-600">Destination: {vehicle.destination}</p>
+            <p className="text-gray-600">Departure Time: {new Date(vehicle.departure_time).toLocaleString()}</p>
           </div>
         ))}
       </div>
-    );
-  };
-  
-  export default VehicleList;
+    </div>
+  );
+};
+
+export default VehicleList;
