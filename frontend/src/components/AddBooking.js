@@ -1,136 +1,103 @@
-import { useState, useEffect } from 'react';
+// BookingForm.js
+import React, { useState } from 'react';
+import axios from 'axios';
 
-const AddBooking = ({ onBookingAdded, loggedInUserId }) => {
-  const [vehicleId, setVehicleId] = useState('');
+function AddBooking() {
+  const [userId] = useState('123'); // Replace with logic to get the authenticated user ID
   const [bookingDate, setBookingDate] = useState('');
   const [bookingType, setBookingType] = useState('');
   const [source, setSource] = useState('');
   const [destination, setDestination] = useState('');
-  const [vehicles, setVehicles] = useState([]);
   const [error, setError] = useState('');
-
-  useEffect(() => {
-    const fetchVehicles = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/vehicles');
-        if (!response.ok) {
-          throw new Error('Failed to fetch vehicles');
-        }
-        const data = await response.json();
-        setVehicles(data);
-      } catch (error) {
-        console.error('Error fetching vehicles:', error);
-        setError('Could not load vehicles. Please try again later.');
-      }
-    };
-
-    fetchVehicles();
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(''); // Reset error message
 
-    if (!vehicleId || !bookingDate || !source || !destination) {
-      setError('Please fill in all fields.');
+    if (!userId || !bookingType || !bookingDate || !source || !destination) {
+      setError('Please fill in all required fields.');
       return;
     }
 
-    const bookingData = { 
-      user_id: loggedInUserId,
-      vehicle_id: vehicleId, 
-      booking_date: bookingDate,
+    const bookingData = {
+      user_id: userId,
       booking_type: bookingType,
+      booking_date: bookingDate,
       source: source,
-      destination: destination
+      destination: destination,
     };
 
     try {
-      const response = await fetch('http://localhost:3000/bookings', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(bookingData),
+      const response = await axios.post('http://localhost:3000/bookings', bookingData, {
+        headers: { 'Content-Type': 'application/json' }
       });
 
-      if (response.ok) {
-        alert('Booking added successfully!');
-        onBookingAdded();
-        // Reset the form fields
-        setVehicleId('');
-        setBookingDate('');
-        setBookingType('');
-        setSource('');
-        setDestination('');
-      } else {
-        const errorResponse = await response.json();
-        setError(`Failed to add booking: ${errorResponse.message}`);
-      }
+      console.log('Booking added successfully:', response.data);
+      alert('Booking added successfully!');
+      // Reset the form fields
+      setBookingDate('');
+      setBookingType('');
+      setSource('');
+      setDestination('');
     } catch (error) {
       console.error('Error adding booking:', error);
-      setError('An error occurred while adding the booking.');
+      setError(error.response?.data?.message || 'An error occurred while adding the booking.');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-6 p-4 bg-white rounded shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Add New Booking</h2>
+    <div className="max-w-lg mx-auto p-6 bg-white rounded-lg shadow-lg">
+      <h2 className="text-2xl font-semibold mb-4 text-gray-800">Book a Vehicle</h2>
       {error && <p className="text-red-500 mb-4">{error}</p>}
-      <select
-        value={vehicleId}
-        onChange={(e) => {
-          const selectedVehicle = vehicles.find(vehicle => vehicle.id === e.target.value);
-          setVehicleId(selectedVehicle.id);
-          setBookingType(selectedVehicle.type); // Set booking type based on selected vehicle
-        }}
-        required
-        className="block w-full p-2 mb-4 border rounded"
-      >
-        <option value="">Select Vehicle</option>
-        {vehicles.map(vehicle => (
-          <option key={vehicle.id} value={vehicle.id}>
-            {vehicle.type} 
-          </option>
-        ))}
-      </select>
-      <input
-        type="text"
-        placeholder="Source"
-        value={source}
-        onChange={(e) => setSource(e.target.value)}
-        required
-        className="block w-full p-2 mb-4 border rounded"
-      />
-      <input
-        type="text"
-        placeholder="Destination"
-        value={destination}
-        onChange={(e) => setDestination(e.target.value)}
-        required
-        className="block w-full p-2 mb-4 border rounded"
-      />
-      <input
-        type="date"
-        value={bookingDate}
-        onChange={(e) => setBookingDate(e.target.value)}
-        required
-        className="block w-full p-2 mb-4 border rounded"
-      />
-      <input
-        type="text"
-        placeholder="Booking Type"
-        value={bookingType}
-        onChange={(e) => setBookingType(e.target.value)}
-        required
-        className="block w-full p-2 mb-4 border rounded"
-      />
-      <button
-        type="submit"
-        className="w-full py-2 bg-blue-600 text-white font-bold rounded hover:bg-blue-700 transition duration-200"
-      >
-        Add Booking
-      </button>
-    </form>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div>
+          <label className="block text-gray-700 font-medium mb-1">Booking Date:</label>
+          <input
+            type="date"
+            value={bookingDate}
+            onChange={(e) => setBookingDate(e.target.value)}
+            required
+            className="block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div>
+          <label className="block text-gray-700 font-medium mb-1">Booking Type (e.g., car, train, aeroplane):</label>
+          <input
+            type="text"
+            value={bookingType}
+            onChange={(e) => setBookingType(e.target.value)}
+            required
+            className="block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div>
+          <label className="block text-gray-700 font-medium mb-1">Source:</label>
+          <input
+            type="text"
+            value={source}
+            onChange={(e) => setSource(e.target.value)}
+            required
+            className="block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <div>
+          <label className="block text-gray-700 font-medium mb-1">Destination:</label>
+          <input
+            type="text"
+            value={destination}
+            onChange={(e) => setDestination(e.target.value)}
+            required
+            className="block w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+        <button
+          type="submit"
+          className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-200"
+        >
+          Add Booking
+        </button>
+      </form>
+    </div>
   );
-};
+}
 
 export default AddBooking;

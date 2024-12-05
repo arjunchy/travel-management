@@ -30,15 +30,15 @@ const AddVehicle = ({ onVehicleAdded }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-6 p-4 bg-white rounded shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Add New Vehicle</h2>
+    <form onSubmit={handleSubmit} className="max-w-lg mx-auto mb-6 p-6 bg-white rounded-lg shadow-lg">
+      <h2 className="text-2xl font-semibold mb-4 text-gray-800">Add New Vehicle</h2>
       <input
         type="text"
-        placeholder="Type"
+        placeholder="Type (e.g., Car, Train, Aeroplane)"
         value={type}
         onChange={(e) => setType(e.target.value)}
         required
-        className="block w-full p-2 mb-4 border rounded"
+        className="block w-full p-3 mb-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       <input
         type="text"
@@ -46,7 +46,7 @@ const AddVehicle = ({ onVehicleAdded }) => {
         value={source}
         onChange={(e) => setSource(e.target.value)}
         required
-        className="block w-full p-2 mb-4 border rounded"
+        className="block w-full p-3 mb-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       <input
         type="text"
@@ -54,18 +54,18 @@ const AddVehicle = ({ onVehicleAdded }) => {
         value={destination}
         onChange={(e) => setDestination(e.target.value)}
         required
-        className="block w-full p-2 mb-4 border rounded"
+        className="block w-full p-3 mb-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       <input
         type="datetime-local"
         value={departureTime}
         onChange={(e) => setDepartureTime(e.target.value)}
         required
-        className="block w-full p-2 mb-4 border rounded"
+        className="block w-full p-3 mb-4 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
       <button
         type="submit"
-        className="w-full py-2 bg-blue-600 text-white font-bold rounded hover:bg-blue-700 transition duration-200"
+        className="w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-200"
       >
         Add Vehicle
       </button>
